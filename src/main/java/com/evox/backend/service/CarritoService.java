@@ -66,11 +66,12 @@ public class CarritoService {
     }
 
     /** DELETE /api/v1/carrito/items/{productoId} */
+    @org.springframework.transaction.annotation.Transactional
     public void eliminarProducto(Perfil usuario, UUID productoId) {
-        if (carritoRepository.findByUsuarioIdAndProductoId(usuario.getId(), productoId).isEmpty()) {
-            throw new ApiException(HttpStatus.NOT_FOUND, "El producto no esta en el carrito");
-        }
-        carritoRepository.deleteByUsuarioIdAndProductoId(usuario.getId(), productoId);
+        Carrito fila = carritoRepository.findByUsuarioIdAndProductoId(usuario.getId(), productoId)
+                .orElseThrow(() -> new com.evox.backend.exception.ApiException(
+                        org.springframework.http.HttpStatus.NOT_FOUND, "El producto no esta en el carrito"));
+        carritoRepository.delete(fila);
     }
 
     private void validarStock(Producto producto, int cantidadDeseada) {

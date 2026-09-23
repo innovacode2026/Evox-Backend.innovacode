@@ -50,7 +50,8 @@ public class CarritoController {
         var itemActualizado = carrito.getItems().stream()
                 .filter(i -> i.getProductoId().equals(productoId))
                 .findFirst()
-                .orElseThrow();
+                .orElseThrow(() -> new com.evox.backend.exception.ApiException(
+                        org.springframework.http.HttpStatus.NOT_FOUND, "El producto no esta en el carrito"));
 
         return ResponseEntity.ok(new RespuestaCantidadActualizada(
                 "Cantidad actualizada", itemActualizado.getSubtotal(), carrito.getTotal()));
