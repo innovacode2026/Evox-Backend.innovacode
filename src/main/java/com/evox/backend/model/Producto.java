@@ -24,6 +24,7 @@ public class Producto {
     @Column(nullable = false)
     private String nombre;
 
+    @Column(columnDefinition = "TEXT")
     private String descripcion;
 
     @Column(nullable = false, precision = 12, scale = 2)
