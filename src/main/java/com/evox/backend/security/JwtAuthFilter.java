@@ -14,12 +14,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.List;
-
-/**
- * Filtro que se ejecuta en cada peticion: si viene un header
- * "Authorization: Bearer {token}", lo valida y deja al usuario autenticado
- * dentro del contexto de seguridad de Spring para esa peticion.
- */
+   
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
 
